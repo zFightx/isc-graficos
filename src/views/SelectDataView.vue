@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-        <div class="selector">
-            <div class="title">
+        <div class="selector" :class="{animated: isAnimated}" @animationend="isAnimated = false">
+            <div class="title" >
                 {{ selectors[currentSelector].name }}
             </div>
 
             <select v-model="selectedColumn">
+                <option value="-1">Selecione</option>
                 <option v-for="(column, columnNumber) in fileTable[0]" :key="column" :value="columnNumber">
                     {{ column }}
                 </option>
@@ -27,48 +28,52 @@
     const selectors = ref([
         {
             name: "Qual coluna representa o nome do Aluno",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota da Prova 1",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota da Prova 2",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 1.1",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 1.2",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 2.1",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 2.2",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 2.3",
-            column: 0,
+            column: -1,
         },
         {
             name: "Qual coluna representa a nota do Minigame 2.4",
-            column: 0,
+            column: -1,
         },
     ]);
     const currentSelector = ref(0);
-    const selectedColumn = ref(0);
+    const isAnimated = ref(false);
+    const selectedColumn = ref(-1);
 
     const SelectColumn = () => {
         selectors.value[currentSelector.value].column = selectedColumn.value;
+        selectedColumn.value = -1;
         if (currentSelector.value < selectors.value.length - 1) currentSelector.value++;
         else CreateGradeTable();
+
+        isAnimated.value = true;
     }
 
     const CreateGradeTable = () => {
@@ -84,7 +89,7 @@
         });
 
         store.commit("SetGradeTable", gradeTable);
-        router.push({name: 'grade'});
+        router.push({ name: 'grade' });
     }
 </script>
 
@@ -141,6 +146,10 @@
                 cursor: pointer;
             }
         }
+
+        &.animated{
+            animation: pulse 0.5s;
+        }
     }
 
     table {
@@ -173,6 +182,18 @@
             &:not(:last-child) {
                 border-bottom: 1px solid rgb(240, 240, 240);
             }
+        }
+    }
+
+    @keyframes pulse {
+        0%{
+            transform: scale(1.0);
+        }
+        50%{
+            transform: scale(1.1);
+        }
+        100%{
+            transform: scale(1.0);
         }
     }
 </style>

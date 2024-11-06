@@ -27,28 +27,6 @@
         <div class="file">
             <ChooseFile :OnChangeFile="ChangeFile" />
         </div>
-        <!-- <table>
-                <tr>
-                    <th>Titulo</th>
-                    <th>Titulo</th>
-                    <th>Titulo</th>
-                    <th>Titulo</th>
-                </tr>
-
-                <tr>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                </tr>
-
-                <tr>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                    <td>olumn</td>
-                </tr>
-            </table> -->
     </div>
 </template>
 
